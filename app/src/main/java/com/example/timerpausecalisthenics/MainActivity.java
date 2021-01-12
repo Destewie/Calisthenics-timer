@@ -1,5 +1,6 @@
 package com.example.timerpausecalisthenics;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity
 {
 
@@ -27,6 +30,9 @@ public class MainActivity extends AppCompatActivity
 
     int tempoInMillis = 150000; // 2:30 in millisecondi. È il tempo del recupero
     long tempoRestanteInMillis = tempoInMillis;
+
+    Random rand;
+    MediaPlayer mp;
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -46,6 +52,8 @@ public class MainActivity extends AppCompatActivity
 
         aggiornaTestoTimer();
         btnReset.setVisibility(View.INVISIBLE);
+
+        rand = new Random();
 
 
         btnAvviaPausa.setOnClickListener(new View.OnClickListener()
@@ -144,6 +152,28 @@ public class MainActivity extends AppCompatActivity
             {
                 resetTimer();
                 tvCountDown.setText("POMPA!");
+
+                int r = rand.nextInt(4);
+                switch (r)
+                {
+                    case 0:
+                        mp = MediaPlayer.create(getApplicationContext(), R.raw.durouomo);
+                        break;
+                    case 1:
+                        mp = MediaPlayer.create(getApplicationContext(), R.raw.forzabro);
+                        break;
+                    case 2:
+                        mp = MediaPlayer.create(getApplicationContext(), R.raw.pompare);
+                        break;
+                    case 3:
+                        mp = MediaPlayer.create(getApplicationContext(), R.raw.spingi);
+                        break;
+                    default:
+                        mp = MediaPlayer.create(getApplicationContext(), R.raw.pompare);
+                        break;
+                };
+
+                mp.start();
             }
 
         }.start();

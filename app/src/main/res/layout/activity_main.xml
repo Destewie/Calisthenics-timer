@@ -19,10 +19,10 @@
             android:layout_width="300dp"
             android:layout_height="67dp"
             android:layout_marginTop="40dp"
-            android:background="#FFFFFF"
+            android:backgroundTint="#7b0fbf"
             android:text="VAI IN PAUSA"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
             android:layout_width="144dp"
             android:layout_height="59dp"
             android:layout_marginTop="24dp"
-            android:background="#FFFFFF"
+            android:backgroundTint="#7b0fbf"
             android:text="RESET TIMER"
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,10 +47,10 @@
             android:layout_width="100dp"
             android:layout_height="75dp"
             android:layout_marginTop="264dp"
-            android:background="#FFFFFF"
+            android:backgroundTint="#7b0fbf"
             android:text="1:00"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/btnAvviaPausa"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -58,10 +58,10 @@
             android:id="@+id/btnUnMinEMezzo"
             android:layout_width="100dp"
             android:layout_height="75dp"
-            android:background="#FFFFFF"
+            android:backgroundTint="#7b0fbf"
             android:text="1:30"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/btnAvviaPausa"
             app:layout_constraintTop_toTopOf="@+id/btnUnMin" />
 
@@ -69,10 +69,10 @@
             android:id="@+id/btnDueMin"
             android:layout_width="100dp"
             android:layout_height="75dp"
-            android:background="#FFFFFF"
+            android:backgroundTint="#7b0fbf"
             android:text="2:00"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/btnAvviaPausa"
             app:layout_constraintTop_toTopOf="@+id/btnDueMinEMezzo" />
 
@@ -81,10 +81,10 @@
             android:layout_width="100dp"
             android:layout_height="75dp"
             android:layout_marginTop="28dp"
-            android:background="#FFFFFF"
+            android:backgroundTint="#7b0fbf"
             android:text="2:30"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/btnAvviaPausa"
             app:layout_constraintTop_toBottomOf="@+id/btnUnMinEMezzo" />
 
@@ -95,6 +95,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="80dp"
+            android:clickable="true"
             android:text="00:00:00"
             android:textAlignment="center"
             android:textAllCaps="false"
@@ -108,11 +109,23 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#7b0fbf"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/Theme.TimerPauseCalisthenics.PopupOverlay" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            app:backgroundTint="#7b0fbf"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
