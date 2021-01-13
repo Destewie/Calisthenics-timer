@@ -35,18 +35,23 @@ import static android.app.Notification.GROUP_ALERT_SUMMARY;
 
 public class MainActivity extends AppCompatActivity
 {
+    private static final String TEMPO_IMPOSTATO = "tempoImpostato";
+    private static final String TEMPO_RESTANTE = "tempoRestante";
+    private static final String VOCE = "voce";
+    private static final String NOTIFICA = "notifica";
+    private static final String CONTANDO = "contando";
+    private static final String VISIBILITA_RESET = "contando";
+
     private static final int NOTIF_ID_TEMPORESTANTE = 666;
     private static final String NOTIF_CHANNEL_ID_TEMPO = "777";
     NotificationManagerCompat notificationManager;
 
-
     TextView tvCountDown;
     Button btnAvviaPausa, btnReset, btnImpostazioni, btn1Min, btn130Min, btn2Min, btn230Min;
     FloatingActionButton floatingTimerSetter;
+    public static CountDownTimer timer;
+
     boolean contando = false; //se il tempo sta scorrendo
-
-    CountDownTimer timer;
-
     int tempoInMillis = 150000; // 2:30 in millisecondi. È il tempo del recupero
     long tempoRestanteInMillis = tempoInMillis;
 
@@ -83,6 +88,25 @@ public class MainActivity extends AppCompatActivity
         rand = new Random();
 
         creazioneCanaleDiNotifica(NOTIF_CHANNEL_ID_TEMPO);
+
+        // If we have a saved state then we can restore it now
+        if (savedInstanceState != null)
+        {
+            tempoInMillis = savedInstanceState.getInt(TEMPO_IMPOSTATO);
+            tempoRestanteInMillis = savedInstanceState.getLong(TEMPO_RESTANTE );
+            btnReset.setVisibility(savedInstanceState.getInt(VISIBILITA_RESET));
+            voce  = savedInstanceState.getBoolean(VOCE, true);
+            notifica  = savedInstanceState.getBoolean(NOTIFICA, false);
+            contando  = savedInstanceState.getBoolean(CONTANDO, false);
+
+            tvCountDown.setText(calcolaTestoTimer());
+            if(contando)
+            {
+                timer.cancel();
+                avviaTimer();
+            }
+
+        }
 
 
         btnAvviaPausa.setOnClickListener(new View.OnClickListener()
@@ -136,7 +160,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                cambiaTempoInMillis(60000);
+                cambiaTempoInMillis(1000);
             }
         });
 
@@ -175,6 +199,24 @@ public class MainActivity extends AppCompatActivity
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        // Make sure to call the super method so that the states of our views are saved
+        super.onSaveInstanceState(outState);
+
+        // Save your own state now
+        outState.putLong(TEMPO_IMPOSTATO, tempoInMillis);
+        outState.putLong(TEMPO_RESTANTE, tempoRestanteInMillis);
+        outState.putInt(VISIBILITA_RESET, btnReset.getVisibility());
+        outState.putBoolean(VOCE, voce);
+        outState.putBoolean(NOTIFICA, notifica);
+        outState.putBoolean(CONTANDO, contando);
+
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     public void cambiaTempoInMillis(int t)
     {
         tempoInMillis = t;
@@ -205,7 +247,7 @@ public class MainActivity extends AppCompatActivity
 
                 if(voce && !notifica)
                 {
-                    int r = rand.nextInt(5);
+                    int r = rand.nextInt(9);
                     switch (r)
                     {
                         case 0:
@@ -223,17 +265,31 @@ public class MainActivity extends AppCompatActivity
                         case 4:
                             mp = MediaPlayer.create(getApplicationContext(), R.raw.spingiunpochino);
                             break;
+                        case 5:
+                            mp = MediaPlayer.create(getApplicationContext(), R.raw.cazzeggiare);
+                            break;
+                        case 6:
+                            mp = MediaPlayer.create(getApplicationContext(), R.raw.pump);
+                            break;
+                        case 7:
+                            mp = MediaPlayer.create(getApplicationContext(), R.raw.secco);
+                            break;
+                        case 8:
+                            mp = MediaPlayer.create(getApplicationContext(), R.raw.vaiuomo);
+                            break;
                         default:
                             mp = MediaPlayer.create(getApplicationContext(), R.raw.spingiunpochino);
                             break;
                     };
 
                     mp.start();
+                    creazioneNotifica(NOTIF_CHANNEL_ID_TEMPO, NOTIF_ID_TEMPORESTANTE,"Fine della pacchia...", "Torna a spingere!", true, false, 2, false);
+
                 }
 
                 else if(!voce && notifica)
                 {
-                    creazioneNotifica(NOTIF_CHANNEL_ID_TEMPO, NOTIF_ID_TEMPORESTANTE,"Fine della pacchia...", "Torna a spingere!", true, false, 2);
+                    creazioneNotifica(NOTIF_CHANNEL_ID_TEMPO, NOTIF_ID_TEMPORESTANTE,"Fine della pacchia...", "Torna a spingere!", true, false, 2, true);
                 }
 
             }
@@ -319,7 +375,7 @@ public class MainActivity extends AppCompatActivity
     //----------------------------------------------------------------------------------------------------------------------------------------
 
     @SuppressLint("WrongConstant")
-    private void creazioneNotifica(String channelID, int notificationID, String titolo, String testo, boolean siCancellaSulClick, boolean nonEliminabile, int priorita)
+    private void creazioneNotifica(String channelID, int notificationID, String titolo, String testo, boolean siCancellaSulClick, boolean nonEliminabile, int priorita, boolean suoni)
     {
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -337,8 +393,10 @@ public class MainActivity extends AppCompatActivity
                 .setVibrate(new long[]{0L}) //no vibrazione
                 .setGroupAlertBehavior(GROUP_ALERT_SUMMARY)
                 .setGroupSummary(false)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI); //prende le impostazioni di default per quanto riguarda le notifiche
+                .setDefaults(NotificationCompat.DEFAULT_ALL);
+
+        if(suoni)
+                mBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI); //prende le impostazioni di default per quanto riguarda le notifiche
 
         notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(notificationID, mBuilder.build());

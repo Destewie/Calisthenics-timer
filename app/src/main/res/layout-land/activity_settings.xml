@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sfondo"
-    android:backgroundTint="@color/sfondo"
     tools:context=".SettingsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/sfondo"
         android:backgroundTint="@color/sfondo">
 
         <Button
@@ -30,7 +29,7 @@
             android:layout_width="172dp"
             android:layout_height="0dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtAudio">
 
@@ -71,7 +70,7 @@
             android:layout_width="157dp"
             android:layout_height="31dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="AUDIO"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
@@ -83,7 +82,7 @@
             android:id="@+id/txtImpostazioni"
             android:layout_width="197dp"
             android:layout_height="44dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="16dp"
             android:text="SETTINGS"
             android:textAlignment="center"
             android:textColor="@color/black"

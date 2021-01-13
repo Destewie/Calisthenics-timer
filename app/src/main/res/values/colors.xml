@@ -8,8 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primaryVariant">#aa3a3a</color>
-    <color name="primary">#a4b787</color>
-    <color name="background">#f4f4f4</color>
+    <color name="variantePrimaria">#aa3a3a</color>
+    <color name="primario">#a4b787</color>
+    <color name="sfondo">#f4f4f4</color>
 
 </resources>

@@ -17,118 +17,131 @@
 
         <Button
             android:id="@+id/btnAvviaPausa"
-            android:layout_width="321dp"
-            android:layout_height="67dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="100dp"
+            android:layout_width="100dp"
+            android:layout_height="163dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="VAI IN PAUSA"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnDueMin"
-            app:layout_constraintVertical_bias="0.32999998" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/btnReset"
-            android:layout_width="144dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="173dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="RESET TIMER"
             android:textColor="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnAvviaPausa"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/text_view_countdown"
+            app:layout_constraintStart_toStartOf="@+id/text_view_countdown"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_countdown"
+            app:layout_constraintVertical_bias="0.13"
             tools:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btnDueMinEMezzo"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/primario"
+            android:backgroundTint="@color/primario"
+            android:text="2:30"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/btnUnMin"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/btnUnMin"
             android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="1:00"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/btnAvviaPausa"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_countdown"
-            app:layout_constraintVertical_bias="0.19999999" />
-
-        <Button
-            android:id="@+id/btnUnMinEMezzo"
-            android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:background="@color/primario"
-            android:backgroundTint="@color/primario"
-            android:text="1:30"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/btnAvviaPausa"
-            app:layout_constraintTop_toTopOf="@+id/btnUnMin" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/btnDueMin"
             android:layout_width="100dp"
-            android:layout_height="75dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="2:00"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/btnAvviaPausa"
-            app:layout_constraintTop_toTopOf="@+id/btnDueMinEMezzo" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/btnUnMin"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.65999997" />
 
         <Button
-            android:id="@+id/btnDueMinEMezzo"
+            android:id="@+id/btnUnMinEMezzo"
             android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="24dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
-            android:text="2:30"
+            android:text="1:30"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/btnAvviaPausa"
-            app:layout_constraintTop_toBottomOf="@+id/btnUnMin" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/btnUnMin"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.32999998" />
 
         <Button
             android:id="@+id/btnImpostazioni"
             android:layout_width="66dp"
             android:layout_height="51dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:background="@color/primario"
             app:icon="@android:drawable/ic_lock_silent_mode_off"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
         <TextView
             android:id="@+id/text_view_countdown"
-            android:layout_width="321dp"
-            android:layout_height="108dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="24dp"
             android:clickable="true"
             android:text="00:00:00"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            android:textSize="78sp"
+            android:textSize="100sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnAvviaPausa"
+            app:layout_constraintStart_toEndOf="@+id/btnDueMinEMezzo"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.050000012" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -147,12 +160,10 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
-            android:tint="@color/teal_200"
             app:backgroundTint="@color/variantePrimaria"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:rippleColor="@color/sfondo"
-            app:srcCompat="@android:drawable/ic_menu_recent_history" />
+            app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
