@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TimerPauseCalisthenics">
         <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.TimerPauseCalisthenics.NoActionBar"></activity>
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.TimerPauseCalisthenics.NoActionBar">

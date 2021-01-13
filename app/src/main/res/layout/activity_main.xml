@@ -10,7 +10,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"
+        android:background="@color/background"
         app:layout_anchor="@+id/constraintLayout"
         app:layout_anchorGravity="center">
 
@@ -19,7 +19,7 @@
             android:layout_width="300dp"
             android:layout_height="67dp"
             android:layout_marginTop="40dp"
-            android:backgroundTint="#7b0fbf"
+            android:backgroundTint="@color/primary"
             android:text="VAI IN PAUSA"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
@@ -33,7 +33,7 @@
             android:layout_width="144dp"
             android:layout_height="59dp"
             android:layout_marginTop="24dp"
-            android:backgroundTint="#7b0fbf"
+            android:backgroundTint="@color/primary"
             android:text="RESET TIMER"
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,9 +47,9 @@
             android:layout_width="100dp"
             android:layout_height="75dp"
             android:layout_marginTop="264dp"
-            android:backgroundTint="#7b0fbf"
+            android:backgroundTint="@color/primary"
             android:text="1:00"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/btnAvviaPausa"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -58,7 +58,7 @@
             android:id="@+id/btnUnMinEMezzo"
             android:layout_width="100dp"
             android:layout_height="75dp"
-            android:backgroundTint="#7b0fbf"
+            android:backgroundTint="@color/primary"
             android:text="1:30"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
@@ -69,7 +69,7 @@
             android:id="@+id/btnDueMin"
             android:layout_width="100dp"
             android:layout_height="75dp"
-            android:backgroundTint="#7b0fbf"
+            android:backgroundTint="@color/primary"
             android:text="2:00"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
@@ -81,7 +81,7 @@
             android:layout_width="100dp"
             android:layout_height="75dp"
             android:layout_marginTop="28dp"
-            android:backgroundTint="#7b0fbf"
+            android:backgroundTint="@color/primary"
             android:text="2:30"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
@@ -99,8 +99,9 @@
             android:text="00:00:00"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="80sp"
+            android:textColor="@color/black"
+            android:textSize="78sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -109,7 +110,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#7b0fbf"
+            android:background="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -122,10 +123,20 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
-            app:backgroundTint="#7b0fbf"
+            app:backgroundTint="@color/primaryVariant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+
+        <Button
+            android:id="@+id/btnImpostazioni"
+            android:layout_width="66dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            app:icon="@android:drawable/ic_lock_silent_mode_off"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
