@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                cambiaTempoInMillis(1000);
+                cambiaTempoInMillis(60000);
             }
         });
 
@@ -194,6 +194,17 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public void onDestroy()
+    {
+
+        super.onDestroy();
+
+        distruggiNotifica();
 
     }
 
@@ -283,7 +294,7 @@ public class MainActivity extends AppCompatActivity
                     };
 
                     mp.start();
-                    creazioneNotifica(NOTIF_CHANNEL_ID_TEMPO, NOTIF_ID_TEMPORESTANTE,"Fine della pacchia...", "Torna a spingere!", true, false, 2, false);
+                    //creazioneNotifica(NOTIF_CHANNEL_ID_TEMPO, NOTIF_ID_TEMPORESTANTE,"Fine della pacchia...", "Torna a spingere!", true, false, 2, false);
 
                 }
 
@@ -298,6 +309,21 @@ public class MainActivity extends AppCompatActivity
 
         btnAvviaPausa.setText("Ferma Timer");
         btnReset.setVisibility(View.INVISIBLE);
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public void distruggiNotifica()
+    {
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
+        for (StatusBarNotification notification : notifications)
+        {
+            if (notification.getId() == NOTIF_ID_TEMPORESTANTE)    //se la notifica è attiva in questo momento, allora cancellala
+            {
+                notificationManager.cancel( NOTIF_ID_TEMPORESTANTE ) ;
+            }
+        }
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -321,15 +347,7 @@ public class MainActivity extends AppCompatActivity
             contando = false;
         }
 
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
-        for (StatusBarNotification notification : notifications)
-        {
-            if (notification.getId() == NOTIF_ID_TEMPORESTANTE)    //se la notifica è attiva in questo momento, allora cancellala
-            {
-                notificationManager.cancel( NOTIF_ID_TEMPORESTANTE ) ;
-            }
-        }
+        distruggiNotifica();
 
 
         tempoRestanteInMillis = tempoInMillis;
@@ -374,7 +392,6 @@ public class MainActivity extends AppCompatActivity
 
     //----------------------------------------------------------------------------------------------------------------------------------------
 
-    @SuppressLint("WrongConstant")
     private void creazioneNotifica(String channelID, int notificationID, String titolo, String testo, boolean siCancellaSulClick, boolean nonEliminabile, int priorita, boolean suoni)
     {
         Intent intent = new Intent(this, MainActivity.class);
@@ -389,11 +406,8 @@ public class MainActivity extends AppCompatActivity
                 .setPriority(priorita) //MAX = 2 //MIN = -2
                 .setAutoCancel(siCancellaSulClick)
                 .setOngoing(nonEliminabile)
-                //.setStyle(new NotificationCompat.BigTextStyle().bigText(testo));
-                .setVibrate(new long[]{0L}) //no vibrazione
-                .setGroupAlertBehavior(GROUP_ALERT_SUMMARY)
-                .setGroupSummary(false)
-                .setDefaults(NotificationCompat.DEFAULT_ALL);
+                .setVibrate(new long[]{ 1000, 1000, 1000 });
+
 
         if(suoni)
                 mBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI); //prende le impostazioni di default per quanto riguarda le notifiche
