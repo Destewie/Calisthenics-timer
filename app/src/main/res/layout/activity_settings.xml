@@ -21,6 +21,7 @@
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="Indietro"
+            android:textColor="@color/testoBottoni"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

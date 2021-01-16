@@ -8,8 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="variantePrimaria">#aa3a3a</color>
-    <color name="primario">#a4b787</color>
-    <color name="sfondo">#f4f4f4</color>
+    <color name="variantePrimaria">#ff4949</color>
+    <color name="primario">#dedede</color>
+    <color name="sfondo">#eeeeee</color>
+    <color name="testoBottoni">#ff4949</color>
+    <color name="testoTimer">@color/black</color>
+
+    // quello verde chiaro e rosso:         aa3a3a a4b787 f4f4f4
+    // quello sull'arancione argilla:       cc7351 e08f62 ded7b1
+    // rosso su nero:                       525252 414141 313131 ca3e47 ca3e47
+    // rosso su bianco                      ff4949 dedede eeeeee ff4949 @color/black
+
+
 
 </resources>

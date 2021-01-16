@@ -12,30 +12,19 @@
         android:background="@color/sfondo"
         android:backgroundTint="@color/sfondo">
 
-        <Button
-            android:id="@+id/btnIndietro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@color/primario"
-            android:backgroundTint="@color/primario"
-            android:text="Indietro"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <RadioGroup
             android:id="@+id/rgAudio"
-            android:layout_width="172dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:orientation='horizontal'
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtAudio">
+            app:layout_constraintTop_toBottomOf="@+id/txtImpostazioni">>
 
             <RadioButton
                 android:id="@+id/rbVoci"
-                android:layout_width="match_parent"
+                android:layout_width="88dp"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/variantePrimaria"
                 android:checked="false"
@@ -46,7 +35,7 @@
 
             <RadioButton
                 android:id="@+id/rbNotifica"
-                android:layout_width="match_parent"
+                android:layout_width="107dp"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/variantePrimaria"
                 android:text="Notifica"
@@ -56,34 +45,35 @@
 
             <RadioButton
                 android:id="@+id/rbSilenzioso"
-                android:layout_width="match_parent"
+                android:layout_width="129dp"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/variantePrimaria"
                 android:text="Silenzioso"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/variantePrimaria"
                 android:textSize="18sp" />
+
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/txtAudio"
-            android:layout_width="157dp"
-            android:layout_height="31dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:text="AUDIO"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtImpostazioni" />
+        <Button
+            android:id="@+id/btnIndietro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@color/primario"
+            android:backgroundTint="@color/primario"
+            android:text="Indietro"
+            android:textColor="@color/testoBottoni"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/txtImpostazioni"
-            android:layout_width="197dp"
-            android:layout_height="44dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="SETTINGS"
+            android:text="AUDIO SETTINGS"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="30sp"
@@ -100,8 +90,11 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/Theme.TimerPauseCalisthenics.PopupOverlay" />
+            app:popupTheme="@style/Theme.TimerPauseCalisthenics.PopupOverlay" /><![CDATA[
 
+        />
+
+    ]]>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

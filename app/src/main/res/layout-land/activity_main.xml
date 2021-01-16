@@ -24,9 +24,9 @@
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="VAI IN PAUSA"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/testoBottoni"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+            app:layout_constraintBottom_toTopOf="@+id/fabCustom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintVertical_bias="0.0" />
@@ -40,28 +40,14 @@
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="RESET TIMER"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/testoBottoni"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/text_view_countdown"
             app:layout_constraintStart_toStartOf="@+id/text_view_countdown"
             app:layout_constraintTop_toBottomOf="@+id/text_view_countdown"
             app:layout_constraintVertical_bias="0.13"
-            tools:visibility="invisible" />
-
-        <Button
-            android:id="@+id/btnDueMinEMezzo"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/primario"
-            android:backgroundTint="@color/primario"
-            android:text="2:30"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/btnUnMin"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="1.0" />
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/btnUnMin"
@@ -73,28 +59,12 @@
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="1:00"
-            android:textColor="@color/white"
+            android:textColor="@color/testoBottoni"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/btnDueMin"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/primario"
-            android:backgroundTint="@color/primario"
-            android:text="2:00"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/btnUnMin"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.65999997" />
 
         <Button
             android:id="@+id/btnUnMinEMezzo"
@@ -105,7 +75,7 @@
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="1:30"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/testoBottoni"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/btnUnMin"
@@ -113,12 +83,45 @@
             app:layout_constraintVertical_bias="0.32999998" />
 
         <Button
+            android:id="@+id/btnDueMinEMezzo"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/primario"
+            android:backgroundTint="@color/primario"
+            android:text="2:30"
+            android:textColor="@color/testoBottoni"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/btnUnMin"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/btnDueMin"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/primario"
+            android:backgroundTint="@color/primario"
+            android:text="2:00"
+            android:textColor="@color/testoBottoni"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/btnUnMin"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.65999997" />
+
+        <Button
             android:id="@+id/btnImpostazioni"
             android:layout_width="66dp"
             android:layout_height="51dp"
             android:layout_marginEnd="16dp"
             android:background="@color/primario"
+            android:textColor="@color/testoBottoni"
             app:icon="@android:drawable/ic_lock_silent_mode_off"
+            app:iconTint="@color/testoBottoni"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar" />
@@ -134,7 +137,7 @@
             android:text="00:00:00"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:textColor="@color/testoTimer"
             android:textSize="100sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -154,7 +157,7 @@
             app:popupTheme="@style/Theme.TimerPauseCalisthenics.PopupOverlay" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/fabCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

@@ -1,46 +1,52 @@
 package com.example.timerpausecalisthenics;
 
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
+import android.text.Editable;
+import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Random;
 
-import static android.app.Notification.GROUP_ALERT_SUMMARY;
-
 public class MainActivity extends AppCompatActivity
 {
+    private static final int UN_MINUTO = 60000;
+    private static final int UN_MINUTO_E_MEZZO = 90000;
+    private static final int DUE_MINUTI = 120000;
+    private static final int DUE_MINUTI_E_MEZZO = 150000;
+
+
     private static final String TEMPO_IMPOSTATO = "tempoImpostato";
     private static final String TEMPO_RESTANTE = "tempoRestante";
     private static final String VOCE = "voce";
     private static final String NOTIFICA = "notifica";
     private static final String CONTANDO = "contando";
-    private static final String VISIBILITA_RESET = "contando";
+
 
     private static final int NOTIF_ID_TEMPORESTANTE = 666;
     private static final String NOTIF_CHANNEL_ID_TEMPO = "777";
@@ -48,11 +54,11 @@ public class MainActivity extends AppCompatActivity
 
     TextView tvCountDown;
     Button btnAvviaPausa, btnReset, btnImpostazioni, btn1Min, btn130Min, btn2Min, btn230Min;
-    FloatingActionButton floatingTimerSetter;
+    FloatingActionButton btnCustom;
     public static CountDownTimer timer;
 
     boolean contando = false; //se il tempo sta scorrendo
-    int tempoInMillis = 150000; // 2:30 in millisecondi. È il tempo del recupero
+    long tempoInMillis = 150000; // 2:30 in millisecondi. È il tempo del recupero
     long tempoRestanteInMillis = tempoInMillis;
 
     Random rand;
@@ -70,7 +76,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         tvCountDown = findViewById(R.id.text_view_countdown);
-        floatingTimerSetter = findViewById(R.id.floatingActionButton);
 
         btnAvviaPausa = findViewById(R.id.btnAvviaPausa);
         btnReset = findViewById(R.id.btnReset);
@@ -79,6 +84,7 @@ public class MainActivity extends AppCompatActivity
         btn130Min = findViewById(R.id.btnUnMinEMezzo);
         btn2Min = findViewById(R.id.btnDueMin);
         btn230Min = findViewById(R.id.btnDueMinEMezzo);
+        btnCustom = findViewById(R.id.fabCustom);
 
         Intent i = new Intent(this, SettingsActivity.class);
 
@@ -92,9 +98,8 @@ public class MainActivity extends AppCompatActivity
         // If we have a saved state then we can restore it now
         if (savedInstanceState != null)
         {
-            tempoInMillis = savedInstanceState.getInt(TEMPO_IMPOSTATO);
-            tempoRestanteInMillis = savedInstanceState.getLong(TEMPO_RESTANTE );
-            btnReset.setVisibility(savedInstanceState.getInt(VISIBILITA_RESET));
+            tempoInMillis = savedInstanceState.getLong(TEMPO_IMPOSTATO, 150000);
+            tempoRestanteInMillis = savedInstanceState.getLong(TEMPO_RESTANTE,  150000 );
             voce  = savedInstanceState.getBoolean(VOCE, true);
             notifica  = savedInstanceState.getBoolean(NOTIFICA, false);
             contando  = savedInstanceState.getBoolean(CONTANDO, false);
@@ -105,6 +110,14 @@ public class MainActivity extends AppCompatActivity
                 timer.cancel();
                 avviaTimer();
             }
+
+            if(!contando && tempoRestanteInMillis != tempoInMillis)
+            {
+                btnReset.setVisibility(View.VISIBLE);
+                btnAvviaPausa.setText("RIPRENDI LA PAUSA");
+            }
+            else if (!contando && tempoRestanteInMillis == tempoInMillis)
+                btnReset.setVisibility(View.INVISIBLE);
 
         }
 
@@ -144,23 +157,13 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        floatingTimerSetter.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(getApplicationContext(), "Devo ancora implementare questo tasto :(", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
 
         btn1Min.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                cambiaTempoInMillis(60000);
+                cambiaTempoInMillis(UN_MINUTO);
             }
         });
 
@@ -170,7 +173,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                cambiaTempoInMillis(90000);
+                cambiaTempoInMillis(UN_MINUTO_E_MEZZO);
             }
         });
 
@@ -180,7 +183,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                cambiaTempoInMillis(120000);
+                cambiaTempoInMillis(DUE_MINUTI);
             }
         });
 
@@ -190,10 +193,55 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                cambiaTempoInMillis(150000);
+                cambiaTempoInMillis(DUE_MINUTI_E_MEZZO);
             }
         });
 
+
+        btnCustom.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+
+                alert.setTitle("Pausa custom");
+                alert.setMessage("Inserisci i secondi di pausa che vuoi fare");
+
+                // Set an EditText view to get user input
+                final EditText input = new EditText(MainActivity.this);
+                alert.setView(input);
+
+                alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int whichButton)
+                    {
+                        // Do something with value!
+                        try
+                        {
+                            int value = Integer.parseInt(input.getText().toString());
+                            cambiaTempoInMillis(value * 1000);
+                        }
+                        catch(Exception e)
+                        {
+                            Toast toast=Toast.makeText(MainActivity.this,"C'è stato un errore con il tuo inserimento :(",Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+
+                    }
+                });
+
+                alert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+
+                alert.show();
+            }
+
+        });
 
     }
 
@@ -219,7 +267,6 @@ public class MainActivity extends AppCompatActivity
         // Save your own state now
         outState.putLong(TEMPO_IMPOSTATO, tempoInMillis);
         outState.putLong(TEMPO_RESTANTE, tempoRestanteInMillis);
-        outState.putInt(VISIBILITA_RESET, btnReset.getVisibility());
         outState.putBoolean(VOCE, voce);
         outState.putBoolean(NOTIFICA, notifica);
         outState.putBoolean(CONTANDO, contando);
@@ -258,7 +305,7 @@ public class MainActivity extends AppCompatActivity
 
                 if(voce && !notifica)
                 {
-                    int r = rand.nextInt(9);
+                    int r = rand.nextInt(15);
                     switch (r)
                     {
                         case 0:
@@ -288,8 +335,20 @@ public class MainActivity extends AppCompatActivity
                         case 8:
                             mp = MediaPlayer.create(getApplicationContext(), R.raw.vaiuomo);
                             break;
+                        case 9:
+                            mp = MediaPlayer.create(getApplicationContext(), R.raw.microbo);
+                            break;
+                        case 10:
+                            mp = MediaPlayer.create(getApplicationContext(), R.raw.soffrire);
+                            break;
+                        case 11:
+                            mp = MediaPlayer.create(getApplicationContext(), R.raw.spingivise);
+                            break;
+                        case 12:
+                            mp = MediaPlayer.create(getApplicationContext(), R.raw.spugna);
+                            break;
                         default:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.spingiunpochino);
+                            mp = MediaPlayer.create(getApplicationContext(), R.raw.vaiuomo);
                             break;
                     };
 
@@ -333,7 +392,7 @@ public class MainActivity extends AppCompatActivity
         timer.cancel();
 
         contando = false;
-        btnAvviaPausa.setText("Vai in pausa");
+        btnAvviaPausa.setText("Riprendi la pausa");
         btnReset.setVisibility(View.VISIBLE);
     }
 
@@ -392,8 +451,7 @@ public class MainActivity extends AppCompatActivity
 
     //----------------------------------------------------------------------------------------------------------------------------------------
 
-    private void creazioneNotifica(String channelID, int notificationID, String titolo, String testo, boolean siCancellaSulClick, boolean nonEliminabile, int priorita, boolean suoni)
-    {
+    private void creazioneNotifica(String channelID, int notificationID, String titolo, String testo, boolean siCancellaSulClick, boolean nonEliminabile, int priorita, boolean suoni) {
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
@@ -406,11 +464,11 @@ public class MainActivity extends AppCompatActivity
                 .setPriority(priorita) //MAX = 2 //MIN = -2
                 .setAutoCancel(siCancellaSulClick)
                 .setOngoing(nonEliminabile)
-                .setVibrate(new long[]{ 1000, 1000, 1000 });
+                .setVibrate(new long[]{1000, 1000, 1000});
 
-
-        if(suoni)
-                mBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI); //prende le impostazioni di default per quanto riguarda le notifiche
+        if (suoni)
+            mBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI) //prende le impostazioni di default per quanto riguarda le notifiche
+                    .setVibrate(new long[]{1000, 1000, 1000});
 
         notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(notificationID, mBuilder.build());
