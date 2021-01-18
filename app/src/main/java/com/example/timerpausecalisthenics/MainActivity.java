@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -41,9 +42,11 @@ public class MainActivity extends AppCompatActivity
     private static final int DUE_MINUTI = 120000;
     private static final int DUE_MINUTI_E_MEZZO = 150000;
 
+    private static final String PREFERENZE = "prefs";
 
     private static final String TEMPO_IMPOSTATO = "tempoImpostato";
     private static final String TEMPO_RESTANTE = "tempoRestante";
+    private static final String TEMPO_FINE = "tempoFine";
     private static final String VOCE = "voce";
     private static final String NOTIFICA = "notifica";
     private static final String CONTANDO = "contando";
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity
 
     boolean contando = false; //se il tempo sta scorrendo
     long tempoInMillis = 150000; // 2:30 in millisecondi. È il tempo del recupero
-    long tempoRestanteInMillis = tempoInMillis;
+    long tempoRestanteInMillis = tempoInMillis, oraDiFine;
 
     Random rand;
     int orientamentoTelefono;
@@ -70,6 +73,9 @@ public class MainActivity extends AppCompatActivity
 
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //CICLO DI VITA DELL'ACTIVITY
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,36 +105,7 @@ public class MainActivity extends AppCompatActivity
 
         creazioneCanaleDiNotifica(NOTIF_CHANNEL_ID_TEMPO);
 
-        // If we have a saved state then we can restore it now
-        if (savedInstanceState != null)
-        {
-            tempoInMillis = savedInstanceState.getLong(TEMPO_IMPOSTATO, 150000);
-            tempoRestanteInMillis = savedInstanceState.getLong(TEMPO_RESTANTE,  150000 );
-            voce  = savedInstanceState.getBoolean(VOCE, true);
-            notifica  = savedInstanceState.getBoolean(NOTIFICA, false);
-            contando  = savedInstanceState.getBoolean(CONTANDO, false);
-
-            tvCountDown.setText(calcolaTestoTimer());
-            if(contando)
-            {
-                timer.cancel();
-                avviaTimer();
-            }
-
-            if(!contando && tempoRestanteInMillis != tempoInMillis)
-            {
-                btnReset.setVisibility(View.VISIBLE);
-
-                if(orientamentoTelefono == Configuration.ORIENTATION_PORTRAIT)
-                    btnAvviaPausa.setText("RIPRENDI LA PAUSA");
-                else
-                    btnAvviaPausa.setText("TORNA IN PAUSA");
-            }
-            else if (!contando && tempoRestanteInMillis == tempoInMillis)
-                btnReset.setVisibility(View.INVISIBLE);
-
-        }
-
+        // ------ BOTTONI -------
 
         btnAvviaPausa.setOnClickListener(new View.OnClickListener()
         {
@@ -255,32 +232,75 @@ public class MainActivity extends AppCompatActivity
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public void onDestroy()
+    @Override
+    protected void onStart() //quando l'activity viene ricreata
     {
+        super.onStart();
 
-        super.onDestroy();
+        SharedPreferences prefs = getSharedPreferences(PREFERENZE, MODE_PRIVATE);
 
-        distruggiNotifica();
+        tempoInMillis = prefs.getLong(TEMPO_IMPOSTATO, 150000);
+        tempoRestanteInMillis = prefs.getLong(TEMPO_RESTANTE,  150000);
+        voce  = prefs.getBoolean(VOCE, true);
+        notifica  = prefs.getBoolean(NOTIFICA, false);
+        contando  = prefs.getBoolean(CONTANDO, false);
 
+        if(contando)
+        {
+            oraDiFine = prefs.getLong(TEMPO_FINE, 150000);
+            tempoRestanteInMillis = oraDiFine - System.currentTimeMillis();
+
+            if(tempoRestanteInMillis < 0) //il timer è scaduto mentre la activity era morta
+            {
+                tempoRestanteInMillis = tempoInMillis;
+                contando = false;
+            }
+            else
+            {
+                avviaTimer();
+            }
+        }
+
+        if(!contando && tempoRestanteInMillis != tempoInMillis) //se il timer è stato avviato ed è attualmente in pausa
+        {
+            btnReset.setVisibility(View.VISIBLE);
+
+            if(orientamentoTelefono == Configuration.ORIENTATION_PORTRAIT)
+                btnAvviaPausa.setText("RIPRENDI LA PAUSA");
+            else
+                btnAvviaPausa.setText("TORNA IN PAUSA");
+        }
+        else if (!contando && tempoRestanteInMillis == tempoInMillis)  //se il timer è fermo e al punto di partenza
+            btnReset.setVisibility(View.INVISIBLE);
+
+        tvCountDown.setText(calcolaTestoTimer());
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     @Override
-    protected void onSaveInstanceState(Bundle outState)
+    protected void onStop() //quando, per un motivo o per l'altro, la activity viene distrutta
     {
-        // Make sure to call the super method so that the states of our views are saved
-        super.onSaveInstanceState(outState);
+        super.onStop();
+
+        distruggiNotifica();
+
+        SharedPreferences prefs = getSharedPreferences(PREFERENZE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
 
         // Save your own state now
-        outState.putLong(TEMPO_IMPOSTATO, tempoInMillis);
-        outState.putLong(TEMPO_RESTANTE, tempoRestanteInMillis);
-        outState.putBoolean(VOCE, voce);
-        outState.putBoolean(NOTIFICA, notifica);
-        outState.putBoolean(CONTANDO, contando);
+        editor.putLong(TEMPO_IMPOSTATO, tempoInMillis);
+        editor.putLong(TEMPO_RESTANTE, tempoRestanteInMillis);
+        editor.putLong(TEMPO_FINE, oraDiFine);
+        editor.putBoolean(VOCE, voce);
+        editor.putBoolean(NOTIFICA, notifica);
+        editor.putBoolean(CONTANDO, contando);
 
+        editor.apply();
     }
 
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // CAMBI AL TIMER
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public void cambiaTempoInMillis(int t)
@@ -294,6 +314,8 @@ public class MainActivity extends AppCompatActivity
 
     public void avviaTimer()
     {
+        oraDiFine = System.currentTimeMillis() + tempoRestanteInMillis;
+
         contando = true;
         timer = new CountDownTimer(tempoRestanteInMillis,10)
         {
@@ -380,21 +402,6 @@ public class MainActivity extends AppCompatActivity
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public void distruggiNotifica()
-    {
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
-        for (StatusBarNotification notification : notifications)
-        {
-            if (notification.getId() == NOTIF_ID_TEMPORESTANTE)    //se la notifica è attiva in questo momento, allora cancellala
-            {
-                notificationManager.cancel( NOTIF_ID_TEMPORESTANTE ) ;
-            }
-        }
-    }
-
-    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
     public void stoppaTimer()
     {
         timer.cancel();
@@ -442,7 +449,10 @@ public class MainActivity extends AppCompatActivity
         return String.format("%02d:%02d:%02d", minuti, secondi, centesimi);
     }
 
-//----------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // NOTIFICHE
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
     private void creazioneCanaleDiNotifica(String numCanale)
     {
@@ -462,7 +472,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //----------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     private void creazioneNotifica(String channelID, int notificationID, String titolo, String testo, boolean siCancellaSulClick, boolean nonEliminabile, int priorita, boolean suoni) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -487,6 +497,23 @@ public class MainActivity extends AppCompatActivity
         notificationManager.notify(notificationID, mBuilder.build());
     }
 
-    //----------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public void distruggiNotifica()
+    {
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
+        for (StatusBarNotification notification : notifications)
+        {
+            if (notification.getId() == NOTIF_ID_TEMPORESTANTE)    //se la notifica è attiva in questo momento, allora cancellala
+            {
+                notificationManager.cancel( NOTIF_ID_TEMPORESTANTE ) ;
+            }
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 }
