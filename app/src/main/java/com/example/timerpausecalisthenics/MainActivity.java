@@ -37,10 +37,10 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 {
-    public static final int UN_MINUTO = 60000;
-    public static final int UN_MINUTO_E_MEZZO = 90000;
-    public static final int DUE_MINUTI = 120000;
-    public static final int DUE_MINUTI_E_MEZZO = 150000;
+    public static int tempo_bottone1 = 60000;
+    public static int tempo_bottone2 = 90000;
+    public static int tempo_bottone3 = 120000;
+    public static int tempo_bottone4 = 150000;
 
     public static final String PREFERENZE = "prefs";
 
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                cambiaTempoInMillis(UN_MINUTO);
+                cambiaTempoInMillis(tempo_bottone1);
             }
         });
 
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                cambiaTempoInMillis(UN_MINUTO_E_MEZZO);
+                cambiaTempoInMillis(tempo_bottone2);
             }
         });
 
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                cambiaTempoInMillis(DUE_MINUTI);
+                cambiaTempoInMillis(tempo_bottone3);
             }
         });
 
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                cambiaTempoInMillis(DUE_MINUTI_E_MEZZO);
+                cambiaTempoInMillis(tempo_bottone4);
             }
         });
 

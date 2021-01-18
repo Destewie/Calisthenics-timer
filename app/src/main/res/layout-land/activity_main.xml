@@ -115,12 +115,12 @@
 
         <Button
             android:id="@+id/btnImpostazioni"
-            android:layout_width="66dp"
+            android:layout_width="56dp"
             android:layout_height="51dp"
             android:layout_marginEnd="16dp"
             android:background="@color/primario"
             android:textColor="@color/testoBottoni"
-            app:icon="@android:drawable/ic_lock_silent_mode_off"
+            app:icon="@drawable/settings_icon"
             app:iconTint="@color/testoBottoni"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
