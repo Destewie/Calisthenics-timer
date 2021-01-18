@@ -1,5 +1,4 @@
 - Servizio foreground per gestire il timer quando la activity viene distrutta
-- Implementare il sistema con il tempo di fine (currentTimeInMillis + millisecondi alla fine)
 - Poter cambiare i tempi rapidi dalle impostazioni
 - cambiare l'icona delle impostazioni con una rotellina d'ingranaggio
 - usare onstop e onstart per salvare dati come l'ultimo tipo di notifica impostato e (nel futuro) i dati dei timer veloci ma usare un service per il timer in foreground

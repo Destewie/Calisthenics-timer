@@ -1,5 +1,6 @@
 package com.example.timerpausecalisthenics;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,6 +20,9 @@ public class SettingsActivity extends AppCompatActivity
     Button btnIndietro;
     RadioGroup rgAudio;
 
+    RadioButton radio; //temp
+    boolean voceLocale, notificaLocale; //le variabili di riferimento sono quelle statiche in mainactivity, queste sono locali alla settingsactivity e hanno durata pari a quella di questa activity
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -27,7 +31,7 @@ public class SettingsActivity extends AppCompatActivity
 
         btnIndietro = findViewById(R.id.btnIndietro);
         rgAudio = (RadioGroup) findViewById(R.id.rgAudio);
-        RadioButton radio;
+
 
         //checko il radio button giusto
         if(MainActivity.voce == true)
@@ -57,22 +61,45 @@ public class SettingsActivity extends AppCompatActivity
                 switch (checkedId)
                 {
                     case R.id.rbVoci:
-                        MainActivity.voce = true;
-                        MainActivity.notifica = false;
+                        voceLocale = true;
+                        notificaLocale = false;
                         break;
 
                     case R.id.rbNotifica:
-                        MainActivity.voce = false;
-                        MainActivity.notifica = true;
+                        voceLocale = false;
+                        notificaLocale = true;
                         break;
 
                     case R.id.rbSilenzioso:
-                        MainActivity.voce = false;
-                        MainActivity.notifica = false;
+                        voceLocale = false;
+                        notificaLocale = false;
                         break;
                 }
             }
         });
         
     }
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------------
+
+    @Override
+    protected void onStop() //quando, per un motivo o per l'altro, la activity viene distrutta
+    {
+        super.onStop();
+
+        SharedPreferences prefs = getSharedPreferences(MainActivity.PREFERENZE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        MainActivity.voce = voceLocale;
+        MainActivity.notifica = notificaLocale;
+
+        editor.putBoolean(MainActivity.VOCE, voceLocale);
+        editor.putBoolean(MainActivity.NOTIFICA, notificaLocale);
+
+        editor.apply();
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
 }

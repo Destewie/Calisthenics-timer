@@ -37,19 +37,19 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 {
-    private static final int UN_MINUTO = 60000;
-    private static final int UN_MINUTO_E_MEZZO = 90000;
-    private static final int DUE_MINUTI = 120000;
-    private static final int DUE_MINUTI_E_MEZZO = 150000;
+    public static final int UN_MINUTO = 60000;
+    public static final int UN_MINUTO_E_MEZZO = 90000;
+    public static final int DUE_MINUTI = 120000;
+    public static final int DUE_MINUTI_E_MEZZO = 150000;
 
-    private static final String PREFERENZE = "prefs";
+    public static final String PREFERENZE = "prefs";
 
-    private static final String TEMPO_IMPOSTATO = "tempoImpostato";
-    private static final String TEMPO_RESTANTE = "tempoRestante";
-    private static final String TEMPO_FINE = "tempoFine";
-    private static final String VOCE = "voce";
-    private static final String NOTIFICA = "notifica";
-    private static final String CONTANDO = "contando";
+    public static final String TEMPO_IMPOSTATO = "tempoImpostato";
+    public static final String TEMPO_RESTANTE = "tempoRestante";
+    public static final String TEMPO_FINE = "tempoFine";
+    public static final String VOCE = "voce";
+    public static final String NOTIFICA = "notifica";
+    public static final String CONTANDO = "contando";
 
 
     private static final int NOTIF_ID_TEMPORESTANTE = 666;
