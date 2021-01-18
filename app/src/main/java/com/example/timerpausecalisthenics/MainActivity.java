@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity
     long tempoRestanteInMillis = tempoInMillis;
 
     Random rand;
+    int orientamentoTelefono;
 
     MediaPlayer mp;
     public static boolean voce = true, notifica = false; //se sono entrambe false, allora vuole il silenzioso
@@ -91,6 +93,8 @@ public class MainActivity extends AppCompatActivity
         tvCountDown.setText(calcolaTestoTimer());
         btnReset.setVisibility(View.INVISIBLE);
 
+        orientamentoTelefono = MainActivity.this.getResources().getConfiguration().orientation;
+
         rand = new Random();
 
         creazioneCanaleDiNotifica(NOTIF_CHANNEL_ID_TEMPO);
@@ -114,7 +118,11 @@ public class MainActivity extends AppCompatActivity
             if(!contando && tempoRestanteInMillis != tempoInMillis)
             {
                 btnReset.setVisibility(View.VISIBLE);
-                btnAvviaPausa.setText("RIPRENDI LA PAUSA");
+
+                if(orientamentoTelefono == Configuration.ORIENTATION_PORTRAIT)
+                    btnAvviaPausa.setText("RIPRENDI LA PAUSA");
+                else
+                    btnAvviaPausa.setText("TORNA IN PAUSA");
             }
             else if (!contando && tempoRestanteInMillis == tempoInMillis)
                 btnReset.setVisibility(View.INVISIBLE);
@@ -224,7 +232,7 @@ public class MainActivity extends AppCompatActivity
                         }
                         catch(Exception e)
                         {
-                            Toast toast=Toast.makeText(MainActivity.this,"C'è stato un errore con il tuo inserimento :(",Toast.LENGTH_SHORT);
+                            Toast toast=Toast.makeText(MainActivity.this,"C'è stato un errore con il tuo inserimento :(", Toast.LENGTH_SHORT);
                             toast.show();
                         }
 
@@ -392,7 +400,12 @@ public class MainActivity extends AppCompatActivity
         timer.cancel();
 
         contando = false;
-        btnAvviaPausa.setText("Riprendi la pausa");
+
+        if(orientamentoTelefono == Configuration.ORIENTATION_PORTRAIT)
+            btnAvviaPausa.setText("RIPRENDI LA PAUSA");
+        else
+            btnAvviaPausa.setText("TORNA IN PAUSA");
+
         btnReset.setVisibility(View.VISIBLE);
     }
 
@@ -457,7 +470,7 @@ public class MainActivity extends AppCompatActivity
 
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelID)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.bicep_icon)
                 .setContentTitle(titolo)
                 .setContentText(testo)
                 .setContentIntent(pendingIntent)
