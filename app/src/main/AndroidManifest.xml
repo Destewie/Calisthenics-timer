@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.timerpausecalisthenics">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/bicep_icon"
@@ -9,10 +11,12 @@
         android:roundIcon="@mipmap/bicep_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TimerPauseCalisthenics">
+
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/Theme.TimerPauseCalisthenics.NoActionBar"></activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -23,6 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".ServizioTimer"/>
+
     </application>
 
 </manifest>

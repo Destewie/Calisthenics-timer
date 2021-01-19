@@ -68,6 +68,34 @@
         </RadioGroup>
 
         <TextView
+            android:id="@+id/txtUnitaMisura1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:text="(sec)"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@+id/txtSecondiBottone1"
+            app:layout_constraintTop_toTopOf="@+id/txtSelezioneButton1" />
+
+        <TextView
+            android:id="@+id/txtUnitaMisura"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:text="(sec)"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@+id/txtSecondiBottone2"
+            app:layout_constraintTop_toTopOf="@+id/txtSelezioneButton3" />
+
+        <TextView
             android:id="@+id/txtAudio"
             android:layout_width="157dp"
             android:layout_height="31dp"
@@ -81,25 +109,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtImpostazioni" />
 
-        <TextView
-            android:id="@+id/txtSelezioniRapide"
-            android:layout_width="wrap_content"
-            android:layout_height="31dp"
-            android:layout_marginTop="32dp"
-            android:text="SELEZIONI RAPIDE"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/rgAudio"
-            app:layout_constraintTop_toBottomOf="@+id/rgAudio" />
+        <EditText
+            android:id="@+id/txtSecondiBottone2"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@color/variantePrimaria"
+            android:ems="10"
+            android:hint="90"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColorHighlight="@color/variantePrimaria"
+            android:textColorLink="@color/variantePrimaria"
+            android:textCursorDrawable="@drawable/cursore_colorato"
+            app:layout_constraintBottom_toBottomOf="@+id/txtSelezioneButton3"
+            app:layout_constraintStart_toStartOf="@+id/txtSecondiBottone1" />
 
         <TextView
             android:id="@+id/txtImpostazioni"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:layout_marginTop="20dp"
-            android:text="SETTINGS"
+            android:text="IMPOSTAZIONI"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="32sp"
@@ -109,16 +140,18 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
-            android:id="@+id/txtBellezza2"
+            android:id="@+id/txtUnitaMisura2"
             android:layout_width="wrap_content"
-            android:layout_height="44dp"
-            android:text=" -"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:text="(sec)"
             android:textAlignment="center"
-            android:textColor="@color/variantePrimaria"
-            android:textSize="32sp"
-            android:textStyle="bold|italic"
-            app:layout_constraintStart_toEndOf="@+id/txtImpostazioni"
-            app:layout_constraintTop_toTopOf="@+id/txtImpostazioni" />
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@+id/txtSecondiBottone4"
+            app:layout_constraintTop_toTopOf="@+id/txtSelezioneButton4" />
 
         <TextView
             android:id="@+id/txtBellezza1"
@@ -133,52 +166,15 @@
             app:layout_constraintTop_toTopOf="@+id/txtImpostazioni" />
 
         <TextView
-            android:id="@+id/txtUnitaMisura"
+            android:id="@+id/txtSelezioneButton3"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginStart="12dp"
-            android:text="(sec)"
-            android:textAlignment="center"
+            android:layout_marginTop="5dp"
+            android:text="Pulsante 2:"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/txtSecondiBottone1"
-            app:layout_constraintTop_toTopOf="@+id/txtSelezioneButton1" />
-
-        <TextView
-            android:id="@+id/txtUnitaMisura2"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="12dp"
-            android:text="(sec)"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/txtSecondiBottone4"
-            app:layout_constraintTop_toTopOf="@+id/txtSelezioneButton4" />
-
-        <TextView
-            android:id="@+id/txtUnitaMisura3"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="12dp"
-            android:text="(sec)"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/txtSecondiBottone2"
-            app:layout_constraintTop_toTopOf="@+id/txtSelezioneButton2" />
-
-        <TextView
-            android:id="@+id/txtUnitaMisura4"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="12dp"
-            android:text="(sec)"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/txtSecondiBottone3"
-            app:layout_constraintTop_toTopOf="@+id/txtSelezioneButton3" />
+            app:layout_constraintStart_toStartOf="@+id/txtSelezioniRapide"
+            app:layout_constraintTop_toBottomOf="@+id/txtSelezioneButton1" />
 
         <TextView
             android:id="@+id/txtSelezioneButton1"
@@ -192,74 +188,6 @@
             app:layout_constraintStart_toStartOf="@+id/txtSelezioniRapide"
             app:layout_constraintTop_toBottomOf="@+id/txtSelezioniRapide" />
 
-        <EditText
-            android:id="@+id/txtSecondiBottone1"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/variantePrimaria"
-            android:ems="10"
-            android:hint="60"
-            android:inputType="number"
-            android:textColorHighlight="@color/variantePrimaria"
-            android:textColorLink="@color/variantePrimaria"
-            android:textCursorDrawable="@drawable/cursore_colorato"
-            app:layout_constraintStart_toEndOf="@+id/txtSelezioneButton1"
-            app:layout_constraintTop_toBottomOf="@+id/txtSelezioniRapide" />
-
-        <TextView
-            android:id="@+id/txtSelezioneButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Pulsante 2:"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/txtSelezioniRapide"
-            app:layout_constraintTop_toBottomOf="@+id/txtSelezioneButton1" />
-
-        <EditText
-            android:id="@+id/txtSecondiBottone2"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="4dp"
-            android:backgroundTint="@color/variantePrimaria"
-            android:ems="10"
-            android:hint="90"
-            android:inputType="number"
-            android:textColorHighlight="@color/variantePrimaria"
-            android:textColorLink="@color/variantePrimaria"
-            android:textCursorDrawable="@drawable/cursore_colorato"
-            app:layout_constraintStart_toStartOf="@+id/txtSecondiBottone1"
-            app:layout_constraintTop_toBottomOf="@+id/txtSecondiBottone1" />
-
-        <TextView
-            android:id="@+id/txtSelezioneButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Pulsante 3:"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/txtSelezioniRapide"
-            app:layout_constraintTop_toBottomOf="@+id/txtSelezioneButton2" />
-
-        <EditText
-            android:id="@+id/txtSecondiBottone3"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="@color/variantePrimaria"
-            android:ems="10"
-            android:hint="120"
-            android:inputType="number"
-            android:textColorHighlight="@color/variantePrimaria"
-            android:textColorLink="@color/variantePrimaria"
-            android:textCursorDrawable="@drawable/cursore_colorato"
-            app:layout_constraintStart_toStartOf="@+id/txtSecondiBottone2"
-            app:layout_constraintTop_toBottomOf="@+id/txtSecondiBottone2" />
-
         <TextView
             android:id="@+id/txtSelezioneButton4"
             android:layout_width="wrap_content"
@@ -269,22 +197,106 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/txtSelezioniRapide"
+            app:layout_constraintTop_toBottomOf="@+id/txtSelezioneButton2" />
+
+        <TextView
+            android:id="@+id/txtSelezioneButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:text="Pulsante 3:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/txtSelezioniRapide"
             app:layout_constraintTop_toBottomOf="@+id/txtSelezioneButton3" />
+
+        <EditText
+            android:id="@+id/txtSecondiBottone1"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@color/variantePrimaria"
+            android:ems="10"
+            android:hint="60"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColorHighlight="@color/variantePrimaria"
+            android:textColorLink="@color/variantePrimaria"
+            android:textCursorDrawable="@drawable/cursore_colorato"
+            app:layout_constraintBottom_toBottomOf="@+id/txtSelezioneButton1"
+            app:layout_constraintStart_toEndOf="@+id/txtSelezioneButton1" />
+
+        <TextView
+            android:id="@+id/txtBellezza2"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:text=" -"
+            android:textAlignment="center"
+            android:textColor="@color/variantePrimaria"
+            android:textSize="32sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toEndOf="@+id/txtImpostazioni"
+            app:layout_constraintTop_toTopOf="@+id/txtImpostazioni" />
+
+        <TextView
+            android:id="@+id/txtSelezioniRapide"
+            android:layout_width="wrap_content"
+            android:layout_height="31dp"
+            android:layout_marginTop="32dp"
+            android:text="SELEZIONI RAPIDE"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/rgAudio"
+            app:layout_constraintTop_toBottomOf="@+id/rgAudio" />
 
         <EditText
             android:id="@+id/txtSecondiBottone4"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="4dp"
             android:backgroundTint="@color/variantePrimaria"
             android:ems="10"
             android:hint="150"
             android:inputType="number"
+            android:textAlignment="center"
             android:textColorHighlight="@color/variantePrimaria"
             android:textColorLink="@color/variantePrimaria"
             android:textCursorDrawable="@drawable/cursore_colorato"
-            app:layout_constraintStart_toStartOf="@+id/txtSecondiBottone3"
-            app:layout_constraintTop_toBottomOf="@+id/txtSecondiBottone3" />
+            app:layout_constraintBottom_toBottomOf="@+id/txtSelezioneButton4"
+            app:layout_constraintStart_toStartOf="@+id/txtSecondiBottone3" />
+
+        <TextView
+            android:id="@+id/txtUnitaMisura3"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:text="(sec)"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@+id/txtSecondiBottone3"
+            app:layout_constraintTop_toTopOf="@+id/txtSelezioneButton2" />
+
+        <EditText
+            android:id="@+id/txtSecondiBottone3"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@color/variantePrimaria"
+            android:ems="10"
+            android:hint="120"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColorHighlight="@color/variantePrimaria"
+            android:textColorLink="@color/variantePrimaria"
+            android:textCursorDrawable="@drawable/cursore_colorato"
+            app:layout_constraintBottom_toBottomOf="@+id/txtSelezioneButton2"
+            app:layout_constraintStart_toStartOf="@+id/txtSecondiBottone2" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

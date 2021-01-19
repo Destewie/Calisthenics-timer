@@ -1,10 +1,12 @@
 package com.example.timerpausecalisthenics;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -56,8 +58,6 @@ public class MainActivity extends AppCompatActivity
     public static final String BOTTONE4 = "bottone4";
 
 
-    private static final int NOTIF_ID_TEMPORESTANTE = 666;
-    private static final String NOTIF_CHANNEL_ID_TEMPO = "777";
     NotificationManagerCompat notificationManager;
 
     TextView tvCountDown;
@@ -107,8 +107,6 @@ public class MainActivity extends AppCompatActivity
         orientamentoTelefono = MainActivity.this.getResources().getConfiguration().orientation;
 
         rand = new Random();
-
-        creazioneCanaleDiNotifica(NOTIF_CHANNEL_ID_TEMPO);
 
         // ------ BOTTONI -------
 
@@ -290,8 +288,6 @@ public class MainActivity extends AppCompatActivity
     {
         super.onStop();
 
-        distruggiNotifica();
-
         SharedPreferences prefs = getSharedPreferences(PREFERENZE, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -328,6 +324,9 @@ public class MainActivity extends AppCompatActivity
     {
         oraDiFine = System.currentTimeMillis() + tempoRestanteInMillis;
 
+        if(!servizioAttivo())
+            startService(oraDiFine);
+
         contando = true;
         timer = new CountDownTimer(tempoRestanteInMillis,10)
         {
@@ -344,66 +343,6 @@ public class MainActivity extends AppCompatActivity
             {
                 resetTimer();
                 tvCountDown.setText("POMPA!");
-
-                if(voce && !notifica)
-                {
-                    int r = rand.nextInt(15);
-                    switch (r)
-                    {
-                        case 0:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.durouomo);
-                            break;
-                        case 1:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.bastacincischiare);
-                            break;
-                        case 2:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.oradispingere);
-                            break;
-                        case 3:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.spingi);
-                            break;
-                        case 4:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.spingiunpochino);
-                            break;
-                        case 5:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.cazzeggiare);
-                            break;
-                        case 6:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.pump);
-                            break;
-                        case 7:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.secco);
-                            break;
-                        case 8:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.vaiuomo);
-                            break;
-                        case 9:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.microbo);
-                            break;
-                        case 10:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.soffrire);
-                            break;
-                        case 11:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.spingivise);
-                            break;
-                        case 12:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.spugna);
-                            break;
-                        default:
-                            mp = MediaPlayer.create(getApplicationContext(), R.raw.vaiuomo);
-                            break;
-                    };
-
-                    mp.start();
-                    //creazioneNotifica(NOTIF_CHANNEL_ID_TEMPO, NOTIF_ID_TEMPORESTANTE,"Fine della pacchia...", "Torna a spingere!", true, false, 2, false);
-
-                }
-
-                else if(!voce && notifica)
-                {
-                    creazioneNotifica(NOTIF_CHANNEL_ID_TEMPO, NOTIF_ID_TEMPORESTANTE,"Fine della pacchia...", "Torna a spingere!", true, false, 2, true);
-                }
-
             }
 
         }.start();
@@ -416,6 +355,7 @@ public class MainActivity extends AppCompatActivity
 
     public void stoppaTimer()
     {
+        stopService();
         timer.cancel();
 
         contando = false;
@@ -434,11 +374,12 @@ public class MainActivity extends AppCompatActivity
     {
         if(contando)
         {
+            stopService();
             timer.cancel();
             contando = false;
         }
 
-        distruggiNotifica();
+        //distruggiNotifica();
 
 
         tempoRestanteInMillis = tempoInMillis;
@@ -495,49 +436,8 @@ public class MainActivity extends AppCompatActivity
     // NOTIFICHE
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-    private void creazioneCanaleDiNotifica(String numCanale)
-    {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            CharSequence name = "Canale";
-            String description = "Canale per i perditempo";
-
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(numCanale, name, importance);
-            channel.setDescription(description);
-
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    private void creazioneNotifica(String channelID, int notificationID, String titolo, String testo, boolean siCancellaSulClick, boolean nonEliminabile, int priorita, boolean suoni) {
-        Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelID)
-                .setSmallIcon(R.mipmap.bicep_icon)
-                .setContentTitle(titolo)
-                .setContentText(testo)
-                .setContentIntent(pendingIntent)
-                .setPriority(priorita) //MAX = 2 //MIN = -2
-                .setAutoCancel(siCancellaSulClick)
-                .setOngoing(nonEliminabile)
-                .setVibrate(new long[]{1000, 1000, 1000});
-
-        if (suoni)
-            mBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI) //prende le impostazioni di default per quanto riguarda le notifiche
-                    .setVibrate(new long[]{1000, 1000, 1000});
-
-        notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(notificationID, mBuilder.build());
-    }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -547,15 +447,50 @@ public class MainActivity extends AppCompatActivity
         StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
         for (StatusBarNotification notification : notifications)
         {
-            if (notification.getId() == NOTIF_ID_TEMPORESTANTE)    //se la notifica è attiva in questo momento, allora cancellala
+            if (notification.getId() == ServizioTimer.NOTIF_ID_TEMPORESTANTE)    //se la notifica è attiva in questo momento, allora cancellala
             {
-                notificationManager.cancel( NOTIF_ID_TEMPORESTANTE ) ;
+                notificationManager.cancel( ServizioTimer.NOTIF_ID_TEMPORESTANTE ) ;
             }
         }
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // SERVIZIO TIMER
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+    public void startService (long oraFine)
+    {
+        Intent serviceIntent = new Intent(this, ServizioTimer.class);
+        serviceIntent.putExtra(TEMPO_FINE, oraFine);
+
+        startService(serviceIntent);
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public void stopService()
+    {
+        Intent serviceIntent = new Intent(this, ServizioTimer.class);
+        stopService(serviceIntent);
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public boolean servizioAttivo()
+    {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+
+        for (ActivityManager.RunningServiceInfo s : manager.getRunningServices(Integer.MAX_VALUE))
+        {
+            if (s.service.getClassName().equals(ServizioTimer.class.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 }
