@@ -43,14 +43,10 @@ public class SettingsActivity extends AppCompatActivity
 
         //setto il testo giusto
 
-        txtSecondiBottone1.setText(Integer.toString( MainActivity.tempo_bottone1 / 1000));
-        txtSecondiBottone1.setHint(Integer.toString( MainActivity.tempo_bottone1 / 1000));
-        txtSecondiBottone2.setText(Integer.toString( MainActivity.tempo_bottone2 / 1000));
-        txtSecondiBottone2.setHint(Integer.toString( MainActivity.tempo_bottone2 / 1000));
-        txtSecondiBottone3.setText(Integer.toString( MainActivity.tempo_bottone3 / 1000));
-        txtSecondiBottone3.setHint(Integer.toString( MainActivity.tempo_bottone3 / 1000));
-        txtSecondiBottone4.setText(Integer.toString( MainActivity.tempo_bottone4 / 1000));
-        txtSecondiBottone4.setHint(Integer.toString( MainActivity.tempo_bottone4 / 1000));
+        txtSecondiBottone1.setText(Long.toString( MainActivity.tempo_bottone1 / 1000));
+        txtSecondiBottone2.setText(Long.toString( MainActivity.tempo_bottone2 / 1000));
+        txtSecondiBottone3.setText(Long.toString( MainActivity.tempo_bottone3 / 1000));
+        txtSecondiBottone4.setText(Long.toString( MainActivity.tempo_bottone4 / 1000));
 
 
         //checko il radio button giusto
@@ -112,6 +108,9 @@ public class SettingsActivity extends AppCompatActivity
 
         MainActivity.voce = voceLocale;
         MainActivity.notifica = notificaLocale;
+
+        int int1 = Integer.parseInt(txtSecondiBottone1.getText().toString()), int2 = Integer.parseInt(txtSecondiBottone2.getText().toString()), int3 = Integer.parseInt(txtSecondiBottone3.getText().toString()), int4 = Integer.parseInt(txtSecondiBottone4.getText().toString());
+        MainActivity.aggiornaBottoniRapidi(int1, int2, int3, int4);
 
         editor.putBoolean(MainActivity.VOCE, voceLocale);
         editor.putBoolean(MainActivity.NOTIFICA, notificaLocale);

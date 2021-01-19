@@ -16,7 +16,7 @@
             android:id="@+id/rgAudio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="20dp"
             android:orientation='horizontal'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,14 +59,16 @@
             android:id="@+id/btnIndietro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="-1dp"
+            android:layout_marginTop="3dp"
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="Indietro"
             android:textColor="@color/testoBottoni"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.022"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
         <TextView
             android:id="@+id/txtImpostazioni"

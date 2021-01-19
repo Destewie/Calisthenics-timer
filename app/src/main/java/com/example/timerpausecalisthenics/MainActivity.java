@@ -37,10 +37,10 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 {
-    public static int tempo_bottone1 = 60000;
-    public static int tempo_bottone2 = 90000;
-    public static int tempo_bottone3 = 120000;
-    public static int tempo_bottone4 = 150000;
+    public static long tempo_bottone1 = 60000;   //questi 4 sono tutti in millisecondi chiaramente
+    public static long tempo_bottone2 = 90000;
+    public static long tempo_bottone3 = 120000;
+    public static long tempo_bottone4 = 150000;
 
     public static final String PREFERENZE = "prefs";
 
@@ -50,6 +50,10 @@ public class MainActivity extends AppCompatActivity
     public static final String VOCE = "voce";
     public static final String NOTIFICA = "notifica";
     public static final String CONTANDO = "contando";
+    public static final String BOTTONE1 = "bottone1";
+    public static final String BOTTONE2 = "bottone2";
+    public static final String BOTTONE3 = "bottone3";
+    public static final String BOTTONE4 = "bottone4";
 
 
     private static final int NOTIF_ID_TEMPORESTANTE = 666;
@@ -57,7 +61,8 @@ public class MainActivity extends AppCompatActivity
     NotificationManagerCompat notificationManager;
 
     TextView tvCountDown;
-    Button btnAvviaPausa, btnReset, btnImpostazioni, btn1Min, btn130Min, btn2Min, btn230Min;
+    public static Button btn1, btn2, btn3, btn4;
+    Button btnAvviaPausa, btnReset, btnImpostazioni;
     FloatingActionButton btnCustom;
     public static CountDownTimer timer;
 
@@ -73,7 +78,7 @@ public class MainActivity extends AppCompatActivity
 
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //CICLO DI VITA DELL'ACTIVITY
+    // CICLO DI VITA DELL'ACTIVITY
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -88,10 +93,10 @@ public class MainActivity extends AppCompatActivity
         btnAvviaPausa = findViewById(R.id.btnAvviaPausa);
         btnReset = findViewById(R.id.btnReset);
         btnImpostazioni = findViewById(R.id.btnImpostazioni);
-        btn1Min = findViewById(R.id.btnUnMin);
-        btn130Min = findViewById(R.id.btnUnMinEMezzo);
-        btn2Min = findViewById(R.id.btnDueMin);
-        btn230Min = findViewById(R.id.btnDueMinEMezzo);
+        btn1 = findViewById(R.id.btnUnMin);
+        btn2 = findViewById(R.id.btnUnMinEMezzo);
+        btn3 = findViewById(R.id.btnDueMin);
+        btn4 = findViewById(R.id.btnDueMinEMezzo);
         btnCustom = findViewById(R.id.fabCustom);
 
         Intent i = new Intent(this, SettingsActivity.class);
@@ -143,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        btn1Min.setOnClickListener(new View.OnClickListener()
+        btn1.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -153,7 +158,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        btn130Min.setOnClickListener(new View.OnClickListener()
+        btn2.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -163,7 +168,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        btn2Min.setOnClickListener(new View.OnClickListener()
+        btn3.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -173,7 +178,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        btn230Min.setOnClickListener(new View.OnClickListener()
+        btn4.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -245,6 +250,8 @@ public class MainActivity extends AppCompatActivity
         notifica  = prefs.getBoolean(NOTIFICA, false);
         contando  = prefs.getBoolean(CONTANDO, false);
 
+        aggiornaBottoniRapidi(prefs.getLong(BOTTONE1, 60), prefs.getLong(BOTTONE2, 90), prefs.getLong(BOTTONE3, 120), prefs.getLong(BOTTONE4, 150));
+
         if(contando)
         {
             oraDiFine = prefs.getLong(TEMPO_FINE, 150000);
@@ -296,6 +303,11 @@ public class MainActivity extends AppCompatActivity
         editor.putBoolean(NOTIFICA, notifica);
         editor.putBoolean(CONTANDO, contando);
 
+        editor.putLong(BOTTONE1, tempo_bottone1/1000);
+        editor.putLong(BOTTONE2, tempo_bottone2/1000);
+        editor.putLong(BOTTONE3, tempo_bottone3/1000);
+        editor.putLong(BOTTONE4, tempo_bottone4/1000);
+
         editor.apply();
     }
 
@@ -303,7 +315,7 @@ public class MainActivity extends AppCompatActivity
     // CAMBI AL TIMER
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public void cambiaTempoInMillis(int t)
+    public void cambiaTempoInMillis(long t)
     {
         tempoInMillis = t;
 
@@ -447,6 +459,48 @@ public class MainActivity extends AppCompatActivity
          centesimi = (int) (tempoRestanteInMillis % 1000) / 10; // non sono sicuro
 
         return String.format("%02d:%02d:%02d", minuti, secondi, centesimi);
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // BOTTONI RAPIDI
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    public static void aggiornaBottoniRapidi(long sec1, long sec2, long sec3, long sec4) //i 4 parametri vanno in secondi e non in millisecondi
+    {
+        int minuti, secondi;
+        
+        if(sec1 * 1000 != tempo_bottone1)
+        {
+            tempo_bottone1 = sec1 * 1000;
+            minuti = (int) tempo_bottone1 / 1000 / 60;
+            secondi = (int) (tempo_bottone1 / 1000) % 60 ;
+            btn1.setText(String.format("%01d:%02d", minuti, secondi));
+        }
+
+        if(sec2 * 1000 != tempo_bottone2)
+        {
+            tempo_bottone2 = sec2 * 1000;
+            minuti = (int) tempo_bottone2 / 1000 / 60;
+            secondi = (int) (tempo_bottone2 / 1000) % 60 ;
+            btn2.setText(String.format("%01d:%02d", minuti, secondi));
+        }
+
+        if(sec3 * 1000 != tempo_bottone3)
+        {
+            tempo_bottone3 = sec1 * 1000;
+            minuti = (int) tempo_bottone3 / 1000 / 60;
+            secondi = (int) (tempo_bottone3 / 1000) % 60 ;
+            btn3.setText(String.format("%01d:%02d", minuti, secondi));
+        }
+
+        if(sec4 * 1000 != tempo_bottone4)
+        {
+            tempo_bottone4 = sec1 * 1000;
+            minuti = (int) tempo_bottone4 / 1000 / 60;
+            secondi = (int) (tempo_bottone4 / 1000) % 60 ;
+            btn4.setText(String.format("%01d:%02d", minuti, secondi));
+        }
+        
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------

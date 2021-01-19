@@ -153,7 +153,7 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/txtSecondiBottone1"
+            app:layout_constraintStart_toEndOf="@+id/txtSecondiBottone4"
             app:layout_constraintTop_toTopOf="@+id/txtSelezioneButton4" />
 
         <TextView
@@ -200,6 +200,7 @@
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/variantePrimaria"
             android:ems="10"
+            android:hint="60"
             android:inputType="number"
             android:textColorHighlight="@color/variantePrimaria"
             android:textColorLink="@color/variantePrimaria"
@@ -225,6 +226,7 @@
             android:layout_marginTop="4dp"
             android:backgroundTint="@color/variantePrimaria"
             android:ems="10"
+            android:hint="90"
             android:inputType="number"
             android:textColorHighlight="@color/variantePrimaria"
             android:textColorLink="@color/variantePrimaria"
@@ -250,6 +252,7 @@
             android:layout_marginTop="5dp"
             android:backgroundTint="@color/variantePrimaria"
             android:ems="10"
+            android:hint="120"
             android:inputType="number"
             android:textColorHighlight="@color/variantePrimaria"
             android:textColorLink="@color/variantePrimaria"
@@ -275,6 +278,7 @@
             android:layout_marginTop="5dp"
             android:backgroundTint="@color/variantePrimaria"
             android:ems="10"
+            android:hint="150"
             android:inputType="number"
             android:textColorHighlight="@color/variantePrimaria"
             android:textColorLink="@color/variantePrimaria"
