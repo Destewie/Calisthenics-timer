@@ -468,39 +468,27 @@ public class MainActivity extends AppCompatActivity
     public static void aggiornaBottoniRapidi(long sec1, long sec2, long sec3, long sec4) //i 4 parametri vanno in secondi e non in millisecondi
     {
         int minuti, secondi;
-        
-        if(sec1 * 1000 != tempo_bottone1)
-        {
-            tempo_bottone1 = sec1 * 1000;
-            minuti = (int) tempo_bottone1 / 1000 / 60;
-            secondi = (int) (tempo_bottone1 / 1000) % 60 ;
-            btn1.setText(String.format("%01d:%02d", minuti, secondi));
-        }
 
-        if(sec2 * 1000 != tempo_bottone2)
-        {
-            tempo_bottone2 = sec2 * 1000;
-            minuti = (int) tempo_bottone2 / 1000 / 60;
-            secondi = (int) (tempo_bottone2 / 1000) % 60 ;
-            btn2.setText(String.format("%01d:%02d", minuti, secondi));
-        }
+        tempo_bottone1 = sec1 * 1000;
+        minuti = (int) tempo_bottone1 / 1000 / 60;
+        secondi = (int) (tempo_bottone1 / 1000) % 60 ;
+        btn1.setText(String.format("%01d:%02d", minuti, secondi));
 
-        if(sec3 * 1000 != tempo_bottone3)
-        {
-            tempo_bottone3 = sec3 * 1000;
-            minuti = (int) tempo_bottone3 / 1000 / 60;
-            secondi = (int) (tempo_bottone3 / 1000) % 60 ;
-            btn3.setText(String.format("%01d:%02d", minuti, secondi));
-        }
+        tempo_bottone2 = sec2 * 1000;
+        minuti = (int) tempo_bottone2 / 1000 / 60;
+        secondi = (int) (tempo_bottone2 / 1000) % 60 ;
+        btn2.setText(String.format("%01d:%02d", minuti, secondi));
 
-        if(sec4 * 1000 != tempo_bottone4)
-        {
-            tempo_bottone4 = sec4 * 1000;
-            minuti = (int) tempo_bottone4 / 1000 / 60;
-            secondi = (int) (tempo_bottone4 / 1000) % 60 ;
-            btn4.setText(String.format("%01d:%02d", minuti, secondi));
-        }
-        
+        tempo_bottone3 = sec3 * 1000;
+        minuti = (int) tempo_bottone3 / 1000 / 60;
+        secondi = (int) (tempo_bottone3 / 1000) % 60 ;
+        btn3.setText(String.format("%01d:%02d", minuti, secondi));
+
+        tempo_bottone4 = sec4 * 1000;
+        minuti = (int) tempo_bottone4 / 1000 / 60;
+        secondi = (int) (tempo_bottone4 / 1000) % 60 ;
+        btn4.setText(String.format("%01d:%02d", minuti, secondi));
+
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
