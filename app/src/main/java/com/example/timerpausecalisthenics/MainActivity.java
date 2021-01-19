@@ -487,7 +487,7 @@ public class MainActivity extends AppCompatActivity
 
         if(sec3 * 1000 != tempo_bottone3)
         {
-            tempo_bottone3 = sec1 * 1000;
+            tempo_bottone3 = sec3 * 1000;
             minuti = (int) tempo_bottone3 / 1000 / 60;
             secondi = (int) (tempo_bottone3 / 1000) % 60 ;
             btn3.setText(String.format("%01d:%02d", minuti, secondi));
@@ -495,7 +495,7 @@ public class MainActivity extends AppCompatActivity
 
         if(sec4 * 1000 != tempo_bottone4)
         {
-            tempo_bottone4 = sec1 * 1000;
+            tempo_bottone4 = sec4 * 1000;
             minuti = (int) tempo_bottone4 / 1000 / 60;
             secondi = (int) (tempo_bottone4 / 1000) % 60 ;
             btn4.setText(String.format("%01d:%02d", minuti, secondi));

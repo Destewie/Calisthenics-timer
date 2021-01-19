@@ -83,21 +83,6 @@
             app:layout_constraintVertical_bias="0.32999998" />
 
         <Button
-            android:id="@+id/btnDueMinEMezzo"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/primario"
-            android:backgroundTint="@color/primario"
-            android:text="2:30"
-            android:textColor="@color/testoBottoni"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/btnUnMin"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <Button
             android:id="@+id/btnDueMin"
             android:layout_width="100dp"
             android:layout_height="50dp"
@@ -112,6 +97,21 @@
             app:layout_constraintStart_toStartOf="@+id/btnUnMin"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintVertical_bias="0.65999997" />
+
+        <Button
+            android:id="@+id/btnDueMinEMezzo"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/primario"
+            android:backgroundTint="@color/primario"
+            android:text="2:30"
+            android:textColor="@color/testoBottoni"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/btnUnMin"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/btnImpostazioni"

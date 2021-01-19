@@ -1,4 +1,3 @@
-- finire le impostazioni per i tasti rapidi dei tempi custom
 - creare la versione aggiornata della activity delle impostazioni in modalità landscape
 
 - Servizio foreground per gestire il timer quando la activity viene distrutta
