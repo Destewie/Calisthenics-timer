@@ -1,5 +1,0 @@
-- creare la versione aggiornata della activity delle impostazioni in modalità landscape
-
-- Servizio foreground per gestire il timer quando la activity viene distrutta
-- cambiare l'icona delle impostazioni con una rotellina d'ingranaggio
-- usare onstop e onstart per salvare dati come l'ultimo tipo di notifica impostato e (nel futuro) i dati dei timer veloci ma usare un service per il timer in foreground

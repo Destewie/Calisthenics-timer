@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/sfondo"
     android:backgroundTint="@color/sfondo"
-    tools:context=".SettingsActivity">
+    tools:context="paccoTimer.SettingsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

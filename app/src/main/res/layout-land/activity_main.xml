@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/sfondo"
-    tools:context=".MainActivity">
+    tools:context="paccoTimer.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -19,6 +19,7 @@
             android:id="@+id/btnAvviaPausa"
             android:layout_width="100dp"
             android:layout_height="163dp"
+
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@color/primario"
@@ -35,6 +36,7 @@
             android:id="@+id/btnReset"
             android:layout_width="173dp"
             android:layout_height="50dp"
+            android:autoSizeTextType="uniform"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="16dp"
             android:background="@color/primario"
@@ -53,6 +55,7 @@
             android:id="@+id/btnUnMin"
             android:layout_width="100dp"
             android:layout_height="50dp"
+            android:autoSizeTextType="uniform"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
@@ -70,6 +73,7 @@
             android:id="@+id/btnUnMinEMezzo"
             android:layout_width="100dp"
             android:layout_height="50dp"
+            android:autoSizeTextType="uniform"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@color/primario"
@@ -86,6 +90,7 @@
             android:id="@+id/btnDueMin"
             android:layout_width="100dp"
             android:layout_height="50dp"
+            android:autoSizeTextType="uniform"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@color/primario"
@@ -102,6 +107,7 @@
             android:id="@+id/btnDueMinEMezzo"
             android:layout_width="100dp"
             android:layout_height="50dp"
+            android:autoSizeTextType="uniform"
             android:layout_marginBottom="16dp"
             android:background="@color/primario"
             android:backgroundTint="@color/primario"

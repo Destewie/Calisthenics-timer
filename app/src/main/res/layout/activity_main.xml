@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/sfondo"
     android:backgroundTint="@color/sfondo"
-    tools:context=".MainActivity">
+    tools:context="paccoTimer.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -21,6 +21,7 @@
             android:id="@+id/btnAvviaPausa"
             android:layout_width="321dp"
             android:layout_height="67dp"
+            android:autoSizeTextType="uniform"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="100dp"
             android:background="@color/primario"
@@ -37,9 +38,10 @@
 
         <Button
             android:id="@+id/btnReset"
-            android:layout_width="144dp"
-            android:layout_height="59dp"
+            android:layout_width="158dp"
+            android:layout_height="49dp"
             android:layout_marginTop="24dp"
+            android:autoSizeTextType="uniform"
             android:background="@color/primario"
             android:backgroundTint="@color/primario"
             android:text="RESET TIMER"
@@ -55,6 +57,7 @@
             android:id="@+id/btnUnMin"
             android:layout_width="100dp"
             android:layout_height="75dp"
+            android:autoSizeTextType="uniform"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="@color/primario"
@@ -69,6 +72,7 @@
 
         <Button
             android:id="@+id/btnUnMinEMezzo"
+            android:autoSizeTextType="uniform"
             android:layout_width="100dp"
             android:layout_height="75dp"
             android:background="@color/primario"
@@ -81,6 +85,7 @@
 
         <Button
             android:id="@+id/btnDueMin"
+            android:autoSizeTextType="uniform"
             android:layout_width="100dp"
             android:layout_height="75dp"
             android:background="@color/primario"
@@ -93,6 +98,7 @@
 
         <Button
             android:id="@+id/btnDueMinEMezzo"
+            android:autoSizeTextType="uniform"
             android:layout_width="100dp"
             android:layout_height="75dp"
             android:layout_marginTop="24dp"
@@ -120,7 +126,7 @@
 
         <TextView
             android:id="@+id/text_view_countdown"
-            android:layout_width="321dp"
+            android:layout_width="wrap_content"
             android:layout_height="108dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
