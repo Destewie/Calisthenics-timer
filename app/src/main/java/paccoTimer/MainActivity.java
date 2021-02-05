@@ -295,6 +295,12 @@ public class MainActivity extends AppCompatActivity
         editor.putLong(BOTTONE4, tempo_bottone4/1000);
 
         editor.apply();
+
+        try
+        {
+            timer.cancel();
+        }
+        catch (Exception e) {}
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------

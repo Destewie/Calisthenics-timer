@@ -5,11 +5,15 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 
 import androidx.annotation.Nullable;
@@ -41,8 +45,8 @@ public class ServizioTimer extends Service
     {
         super.onCreate();
 
-        creazioneCanaleDiNotifica(NOTIF_CHANNEL_ID_TEMPORESTANTE);
-        creazioneCanaleDiNotifica(NOTIF_CHANNEL_ID_MUOVERSI);
+        creazioneCanaleDiNotifica(NOTIF_CHANNEL_ID_TEMPORESTANTE, true);
+        creazioneCanaleDiNotifica(NOTIF_CHANNEL_ID_MUOVERSI, false);
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------
@@ -73,6 +77,7 @@ public class ServizioTimer extends Service
             e.printStackTrace();
         }
 
+
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------
@@ -88,16 +93,22 @@ public class ServizioTimer extends Service
     // NOTIFICHE
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public void creazioneCanaleDiNotifica(String numCanale)
+    public void creazioneCanaleDiNotifica(String numCanale, Boolean canaleSilenzioso)
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
             CharSequence name = "Canale";
             String description = "Canale per i perditempo";
 
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(numCanale, name, importance);
+
+            NotificationChannel channel = new NotificationChannel(numCanale, name, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(description);
+
+            if(canaleSilenzioso)
+            {
+                channel.setSound(null, null);
+                channel.setShowBadge(false);
+            }
 
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
@@ -142,8 +153,14 @@ public class ServizioTimer extends Service
             mBuilder.setVibrate(new long[]{0L}) //no vibrazione
                     .setGroupAlertBehavior(GROUP_ALERT_SUMMARY)
                     .setGroup("My group")
-                    .setGroupSummary(false)
-                    .setDefaults(NotificationCompat.DEFAULT_ALL);
+                    .setGroupSummary(false);
+                    //.setDefaults(NotificationCompat.DEFAULT_ALL);
+        }
+        else
+        {
+            // specifica il suono
+            mBuilder.setDefaults(NotificationCompat.DEFAULT_ALL)
+                    .setVibrate(new long[] { 0, 500, 200, 500, 200});
         }
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
